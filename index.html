@@ -10,13 +10,21 @@
     <script src="js/main.js" defer></script>
     <title>Photo App</title>
 </head>
+<div class="modal-bg hidden" aria-hidden="true" role="dialog">
+    <section class="modal">
+        <button class="close" onclick="exitModal()" aria-label="Close the modal window">Close</button>
+        <div class="modal-body">
+            <!-- Content inside... -->
+        </div>
+    </section>
+</div>
 <body>
     <header id="topnav">
         <h1 class="logo">
             Photo App
         </h1>
-        <nav>
-            <button>cmartens</button>
+        <nav id="main-buttons">
+            <!-- <button>cmartens</button> -->
             <button>Sign Out</button>
         </nav>
     </header>
@@ -24,13 +32,13 @@
         
         <!-- Fix the aside to the right-hand side -->
         <aside>
-            <header>
-                <img src="https://picsum.photos/75/75">
-                <div>cmartens</div>
+            <header id="profile">
+                <!-- <img src="https://picsum.photos/75/75">
+                <div>cmartens</div> -->
             </header>
             <section>Suggestions for you</section>
-            <section>
-                <div>
+            <section id="suggestions">
+                <!-- <div>
                     <img src="https://picsum.photos/50/50">
                     <div>
                         <p class="suggestedName">Rando1</p>
@@ -69,13 +77,13 @@
                         <p class="suggestion">suggested for you</p>
                     </div>
                     <button>follow</button>
-                </div>
+                </div> -->
             </section>
         </aside>
         
         <section class="news-feed">
-            <header>
-                <div>
+            <header class="stories">
+                <!-- <div>
                     <img src="https://picsum.photos/40/40">
                     <p>Psuedo1</p>
                 </div>
@@ -94,9 +102,9 @@
                 <div>
                     <img src="https://picsum.photos/40/40">
                     <p>Psuedo5</p>
-                </div>
+                </div> -->
             </header>
-            <section>
+            <!-- <section>
                 <header>
                     <p>mock1</p>
                     <button><i class="fa-solid fa-ellipsis"></i></button>
@@ -199,7 +207,7 @@
                         <button>Post</button>
                     </div>
                 </div>
-            </section>
+            </section> -->
         </section>
     </main>
 </body>
