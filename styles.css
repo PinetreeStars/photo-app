@@ -1,0 +1,180 @@
+body * {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #F4F4F4;
+}
+
+/* Begin Debugging Code */
+header, main, main section, nav, .logo {
+    border: solid 2px #CCC;
+}
+
+body header h1 {
+    font-family: 'Comfortaa';
+}
+
+aside header div{
+    font-family: 'Comfortaa';
+}
+
+.news-feed header div p {
+    font-family: 'Comfortaa';
+}
+
+.news-feed section header p {
+    font-family: 'Comfortaa';
+}
+
+img {
+    border-radius: 50%;
+}
+
+button {
+    border: none;
+    background: none;
+}
+
+.logo {
+    font-size: 1em;
+    font-weight: normal;
+}
+
+#topnav {
+    position: fixed;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    background: #f4f4f4;
+    height: 70px;
+    padding: 5px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#topnav nav {
+    display: flex;
+}
+
+#topnav nav button{
+    margin: 10px;
+}
+
+main {
+    margin-top: 70px;
+}
+
+aside {
+    position: fixed;
+    top: 70px;
+    left: 80vw;
+    width: 20vw;
+    min-height: 400px;
+}
+
+aside header {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: center;
+    justify-items: left;
+    padding: 10px;
+}
+
+aside section div {
+    display: grid;
+    grid-template-columns: 30% auto 30%;
+    justify-items: center;
+    align-items: center;
+    height: 7vh
+}
+
+aside section div div {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 25% 25% 25% 25%;
+}
+
+.suggestedName {
+    grid-row: 2;
+}
+
+.suggestion {
+    grid-row: 3;
+    overflow: auto;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.news-feed section {
+    display: flex;
+    min-height: 300px;
+    flex-direction: column;
+}
+
+.news-feed {
+    margin-right: 20vw;
+}
+
+.news-feed header {
+    display: flex;
+}
+
+.news-feed header div {
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px;
+    padding-top: 15px;
+}
+
+.news-feed section header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.news-feed section img {
+    border-radius: 0%;
+}
+
+.icons {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.comments {
+    display: flex;
+    flex-direction: column;
+}
+
+.comments h2 {
+    margin: 15px;
+}
+
+.comments p {
+    padding-left: 15px;
+    margin: 3px;
+}
+
+.comments div {
+    display: grid;
+    grid-template-columns: 5% 90% 5%;
+    border-top: solid 2px #CCC;
+    padding: 10px;
+}
+
+@media (max-width: 900px) {
+    aside {
+        display: none;
+    }
+    .news-feed {
+        margin-right: 0;
+    }
+    
+}

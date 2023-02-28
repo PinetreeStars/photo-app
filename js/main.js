@@ -1,5 +1,7 @@
 import {getAccessToken} from './utilities.js';
 const rootURL = 'https://photo-app-secured.herokuapp.com';
+const username = "cameron";
+const password = "cameron_password";
 
 const showStories = async (token) => {
     const endpoint = `${rootURL}/api/stories`;
@@ -20,7 +22,7 @@ const showPosts = async (token) => {
 
 const initPage = async () => {
     // first log in (we will build on this after Spring Break):
-    const token = await getAccessToken(rootURL, 'webdev', 'password');
+    const token = await getAccessToken(rootURL, username, password);
 
     // then use the access token provided to access data on the user's behalf
     showStories(token);
