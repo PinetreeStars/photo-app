@@ -93,8 +93,9 @@ const getPosts = async () => {
         }
     })
     const data = await response.json();
-    console.log('Posts:', data);
-    data.forEach(postToHTML);
+    //console.log('Posts:', data);
+    const megastring = data.map(postToHTML).join('');
+    document.querySelector(".news-feed").insertAdjacentHTML('beforeend', megastring);
 }
 
 function postToHTML (p, index) {
@@ -103,7 +104,6 @@ function postToHTML (p, index) {
     }
     let comm = '';
     if ((p.comments) && (p.comments.length != 0)) {
-        //Pickup here
         if (p.comments.length == 1){
             comm = `<p><b>${p.comments[0].user.username}</b> ${p.comments[0].text}</p>`;
         }else{
@@ -111,15 +111,14 @@ function postToHTML (p, index) {
             comm += `<button class="enterModal" onclick="enterModal(${p.id})">View all ${p.comments.length} comment(s)</button>`;
         }
     }
-    document.querySelector(".news-feed").insertAdjacentHTML('beforeend', 
-    `<section>
+    return `<section id="post_${p.id}">
         <header>
             <p>${p.user.username}</p>
         </header>
         <img src="${p.image_url}">
         <div class="icons">
             <div>
-                <button><i class="fa-${(p.current_user_like_id) ? 'solid' : 'regular'} fa-heart"></i></button>
+                <button onclick="${(p.current_user_like_id) ? 'unlike('+p.id+', '+p.current_user_like_id+')"><i class="fa-solid' : 'like('+p.id+')"><i class="fa-regular'} fa-heart"></i></button>
                 <button><i class="fa-regular fa-comment"></i></button>
                 <button><i class="fa-regular fa-paper-plane"></i></button>
             </div>
@@ -130,11 +129,55 @@ function postToHTML (p, index) {
             <p><b>${p.user.username}</b> ${p.caption} <button><i class="fa-solid fa-ellipsis"></i></button></p>
             ${comm}
         </div>
-    </section>`);
+    </section>`;
+}
+
+async function redrawPost(id){
+    const endpoint = `${rootURL}/api/posts/${id}`;
+    const response = await fetch(endpoint, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    const data = await response.json();
+    //console.log('Post:', data);
+    targetElementAndReplace(`#post_${id}`, postToHTML(data, 0));
+}
+
+async function like(id){
+    const endpoint = `${rootURL}/api/posts/likes`;
+    const postData = {
+        "post_id": id
+    };
+    const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }, 
+        body: JSON.stringify(postData)
+    })
+    const data = await response.json();
+    redrawPost(id);
+}
+
+async function unlike(id, userId){
+    const endpoint = `${rootURL}/api/posts/likes/${userId}`;
+    const response = await fetch(endpoint, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    });
+    const data = await response.json();
+    //console.log(data);
+    redrawPost(id);
 }
 
 function enterModal(id) {
-    getPost(id);
+    getComments(id);
     const modalElement = document.querySelector('.modal-bg');
     modalElement.classList.remove('hidden');
     modalElement.setAttribute('aria-hidden', 'false');
@@ -147,7 +190,7 @@ function exitModal(){
     modalElement.setAttribute('aria-hidden', 'false');
 }
 
-async function getPost(id) {
+async function getComments(id) {
     const endpoint = `${rootURL}/api/posts/${id}`;
     const response = await fetch(endpoint, {
         headers: {
@@ -187,3 +230,11 @@ const initPage = async () => {
 }
 
 initPage();
+
+const targetElementAndReplace = (selector, newHTML) => {
+    const div = document.createElement('div'); 
+    div.innerHTML = newHTML;
+    const newEl = div.firstElementChild; 
+    const oldEl = document.querySelector(selector);
+    oldEl.parentElement.replaceChild(newEl, oldEl);
+}
